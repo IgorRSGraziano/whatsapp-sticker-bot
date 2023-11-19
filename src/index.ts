@@ -1,6 +1,6 @@
-import * as WhatsApp from "whatsapp-web.js";
-import * as QRCode from "qrcode-terminal";
-import quotes from "./quotes";
+import WhatsApp from "whatsapp-web.js";
+import QRCode from "qrcode-terminal";
+import quotes from "./quotes.js";
 import sharp from "sharp";
 
 const client = new WhatsApp.Client({

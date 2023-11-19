@@ -1,21 +1,25 @@
-FROM oven/bun:1 as base
+FROM oven/bun:1-alpine as base
+RUN apk add nodejs
 WORKDIR /usr/src/app
 
 FROM base AS install
 
-RUN mkdir -p /temp/prod
-COPY package.json bun.lockb /temp/prod/
-RUN cd /temp/prod && bun install --frozen-lockfile --production
+WORKDIR /temp/prod
+RUN mkdir -p .
+COPY package.json .
+
+RUN bun install
 
 FROM install AS prerelease
+# WORKDIR /usr/src/app
 COPY --from=install /temp/prod/node_modules node_modules
 COPY . .
 
-ENV NODE_ENV=production
-
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/src .
+COPY --from=prerelease /usr/src/app/src src
 COPY --from=prerelease /usr/src/app/package.json .
+RUN ls /usr/src/app/
+RUN ls /usr/src/app/src
 
 ENTRYPOINT [ "bun", "run", "src/index.ts" ]
