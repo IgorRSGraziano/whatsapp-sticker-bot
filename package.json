@@ -1,16 +1,19 @@
 {
-  "name": "whatsapp-sticker-bot",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@types/qrcode-terminal": "^0.12.2",
-    "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.23.0"
-  }
+	"name": "whatsapp-sticker-bot",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"start": "bun index.ts"
+	},
+	"devDependencies": {
+		"bun-types": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@types/qrcode-terminal": "^0.12.2",
+		"qrcode-terminal": "^0.12.0",
+		"whatsapp-web.js": "^1.23.0"
+	}
 }
