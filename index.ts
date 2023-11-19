@@ -6,7 +6,7 @@ import sharp from "sharp";
 const client = new WhatsApp.Client({
 	authStrategy: new WhatsApp.LocalAuth({ dataPath: "./auth" }),
 	puppeteer: {
-		headless: false,
+		headless: true,
 	},
 });
 
