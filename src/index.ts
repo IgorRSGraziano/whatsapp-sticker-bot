@@ -7,6 +7,7 @@ const client = new WhatsApp.Client({
 	authStrategy: new WhatsApp.LocalAuth({ dataPath: "./auth" }),
 	puppeteer: {
 		headless: true,
+		args: ["--no-sandbox", "--disable-setuid-sandbox"],
 	},
 });
 

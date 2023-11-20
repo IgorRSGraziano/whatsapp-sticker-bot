@@ -1,25 +1,23 @@
-FROM oven/bun:1-alpine as base
-RUN apk add nodejs
-WORKDIR /usr/src/app
+FROM node:21-alpine3.17 AS base
+WORKDIR /app
+RUN apk add chromium
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-FROM base AS install
+FROM base AS dependencies
+COPY package*.json ./
+#CI not run post-install scripts (needed from puppeteer and sharp)
+RUN npm i --unsafe-perm=true --allow-root
 
-WORKDIR /temp/prod
-RUN mkdir -p .
-COPY package.json .
-
-RUN bun install
-
-FROM install AS prerelease
-# WORKDIR /usr/src/app
-COPY --from=install /temp/prod/node_modules node_modules
+FROM base AS build
 COPY . .
+COPY --from=dependencies /app/node_modules ./node_modules
+ENV NODE_ENV=production
+RUN npm run build
+# RUN npm prune --production
 
 FROM base AS release
-COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/src src
-COPY --from=prerelease /usr/src/app/package.json .
-RUN ls /usr/src/app/
-RUN ls /usr/src/app/src
-
-ENTRYPOINT [ "bun", "run", "src/index.ts" ]
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package*.json ./
+ENV NODE_ENV=production
+CMD ["node", "dist/index.js"]
