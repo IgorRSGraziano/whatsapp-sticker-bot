@@ -25,8 +25,12 @@ client.on("message", async (msg) => {
 		if (msg.hasMedia && msg.type === "image") {
 			const media = await msg.downloadMedia();
 			const imgBuffer = Buffer.from(media.data, "base64");
-			const mediaWebp = await sharp(imgBuffer).webp().toBuffer();
-			const sticker = new WhatsApp.MessageMedia("image/webp", mediaWebp.toString("base64"), "sticker");
+			const mediaResized = await sharp(imgBuffer)
+				.resize({ width: 512, height: 512, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+				.webp()
+				.toBuffer();
+
+			const sticker = new WhatsApp.MessageMedia("image/webp", mediaResized.toString("base64"), "sticker");
 			const chat = await msg.getChat();
 			const quote = quotes[Math.floor(Math.random() * quotes.length)];
 			await chat.sendMessage(sticker, { sendMediaAsSticker: true, stickerAuthor: `${quote.source} - ${quote.philosophy}`, stickerName: quote.quote });
