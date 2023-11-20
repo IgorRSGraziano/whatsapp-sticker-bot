@@ -2,9 +2,16 @@ import WhatsApp from "whatsapp-web.js";
 import QRCode from "qrcode-terminal";
 import quotes from "./quotes.js";
 import sharp from "sharp";
+import fs from "fs";
+
+process.env.TEMP_DIR ??= "./temp/";
+
+if (!fs.existsSync(process.env.TEMP_DIR)) {
+	fs.mkdirSync(process.env.TEMP_DIR);
+}
 
 const client = new WhatsApp.Client({
-	authStrategy: new WhatsApp.LocalAuth({ dataPath: "./auth" }),
+	authStrategy: new WhatsApp.LocalAuth({ dataPath: process.env.TEMP_DIR + "/auth" }),
 	puppeteer: {
 		headless: true,
 		args: ["--no-sandbox", "--disable-setuid-sandbox"],
