@@ -3,7 +3,9 @@
 	"module": "src/index.ts",
 	"type": "module",
 	"scripts": {
-		"start": "node dist/index.js"
+		"start": "node dist/index.js",
+		"build": "tsc",
+		"dev": "node --watch --inspect --loader ts-node/esm src/index.ts"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
@@ -15,6 +17,7 @@
 		"whatsapp-web.js": "^1.23.0"
 	},
 	"devDependencies": {
-		"@types/qrcode-terminal": "^0.12.2"
+		"@types/qrcode-terminal": "^0.12.2",
+		"ts-node": "^10.9.1"
 	}
 }
