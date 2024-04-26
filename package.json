@@ -14,7 +14,7 @@
 		"@types/qrcode-terminal": "^0.12.2",
 		"qrcode-terminal": "^0.12.0",
 		"sharp": "^0.33.3",
-		"whatsapp-web.js": "^1.23.0"
+		"whatsapp-web.js": "1.16.4-alpha.0"
 	},
 	"devDependencies": {
 		"@types/qrcode-terminal": "^0.12.2",
