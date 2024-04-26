@@ -30,4 +30,4 @@ jobs:
           script: |
             cd ${{ vars.SERVER_PATH }}
             docker compose pull
-            docker compose up wpp-bot
+            docker compose up wpp
