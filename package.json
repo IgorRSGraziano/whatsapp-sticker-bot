@@ -1,6 +1,11 @@
 {
 	"name": "whatsapp-sticker-bot",
 	"module": "src/index.ts",
+	"version": "1.0.0",
+	"author": {
+		"name": "Igor Graziano",
+		"email": "igorrsgraziano@gmail.com"
+	},
 	"type": "module",
 	"scripts": {
 		"start": "node dist/index.js",

@@ -13,7 +13,6 @@ if (!fs.existsSync(process.env.TEMP_DIR)) {
 const client = new Client({
 	authStrategy: new WhatsApp.LocalAuth({ dataPath: process.env.TEMP_DIR + "/auth" }),
 	puppeteer: {
-		headless: true,
 		args: ["--no-sandbox", "--disable-setuid-sandbox"],
 	},
 });
