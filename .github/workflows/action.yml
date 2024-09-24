@@ -14,8 +14,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Publish
         run: |
-          docker build -t ${{ vars.DOCKER_REGISTRY }}/wpp-bot:latest .
-          docker push ${{ vars.DOCKER_REGISTRY }}/wpp-bot:latest
+          docker build -t ${{ vars.DOCKER_REGISTRY }}/sticker-bot:latest .
+          docker push ${{ vars.DOCKER_REGISTRY }}/sticker-bot:latest
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
